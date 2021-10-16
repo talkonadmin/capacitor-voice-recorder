@@ -21,5 +21,11 @@ export interface VoiceRecorderPlugin {
 
   startRecording (): Promise<GenericResponse>
 
+  pauseRecording (): Promise<GenericResponse>
+
+  resumeRecording (): Promise<GenericResponse>
+
   stopRecording (): Promise<RecordingData>
+
+  cancelRecording (): Promise<GenericResponse>
 }

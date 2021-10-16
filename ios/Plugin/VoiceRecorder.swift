@@ -55,6 +55,37 @@ public class VoiceRecorder: CAPPlugin {
         }
     }
     
+    @objc func pauseRecording(_ call: CAPPluginCall) {
+        if(customMediaRecorder == nil) {
+            call.reject(Messages.RECORDING_HAS_NOT_STARTED)
+            return
+        }
+        
+        customMediaRecorder?.pauseRecording()
+        call.resolve(ResponseGenerator.successResponse())
+    }
+
+    @objc func resumeRecording(_ call: CAPPluginCall) {
+        if(customMediaRecorder == nil) {
+            call.reject(Messages.RECORDING_HAS_NOT_STARTED)
+            return
+        }
+        
+        customMediaRecorder?.resumeRecording()
+        call.resolve(ResponseGenerator.successResponse())
+    }
+
+    @objc func cancelRecording(_ call: CAPPluginCall) {
+        if(customMediaRecorder == nil) {
+            call.reject(Messages.RECORDING_HAS_NOT_STARTED)
+            return
+        }
+        
+        customMediaRecorder?.stopRecording()
+        customMediaRecorder?.deleteOutputFile()
+        call.resolve(ResponseGenerator.successResponse())
+    }
+
     @objc func stopRecording(_ call: CAPPluginCall) {
         if(customMediaRecorder == nil) {
             call.reject(Messages.RECORDING_HAS_NOT_STARTED)

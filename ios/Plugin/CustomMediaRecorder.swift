@@ -39,6 +39,18 @@ class CustomMediaRecorder {
         }
     }
     
+    public func pauseRecording() {
+        do {
+          audioRecorder.pause()
+        } catch {}
+    }
+  
+    public func resumeRecording() {
+        do {
+          audioRecorder.record()
+        } catch {}
+    }
+
     public func stopRecording() {
         do {
             audioRecorder.stop()
@@ -52,4 +64,9 @@ class CustomMediaRecorder {
         return audioFilePath
     }
     
+    public func deleteOutputFile() {
+        do {
+          audioRecorder.deleteRecording()
+        } catch {}
+    }
 }

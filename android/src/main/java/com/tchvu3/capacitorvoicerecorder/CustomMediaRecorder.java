@@ -37,6 +37,14 @@ public class CustomMediaRecorder {
         mediaRecorder.start();
     }
 
+    public void pauseRecording() {
+      mediaRecorder.pause();
+    }
+
+    public void resumeRecording() {
+      mediaRecorder.resume();
+    }
+
     public void stopRecording() {
         mediaRecorder.stop();
         mediaRecorder.release();

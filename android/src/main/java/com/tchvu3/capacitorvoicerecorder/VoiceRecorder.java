@@ -99,6 +99,36 @@ public class VoiceRecorder extends Plugin {
     }
 
     @PluginMethod()
+    public void pauseRecording(PluginCall call) {
+        if (mediaRecorder == null) {
+            call.reject(RECORDING_HAS_NOT_STARTED);
+            return;
+        }
+
+        try {
+            mediaRecorder.pauseRecording();
+            call.resolve(ResponseGenerator.successResponse());
+        } catch (Exception exp) {
+            call.reject(FAILED_TO_FETCH_RECORDING, exp);
+        }
+    }
+
+    @PluginMethod()
+    public void resumeRecording(PluginCall call) {
+        if (mediaRecorder == null) {
+            call.reject(RECORDING_HAS_NOT_STARTED);
+            return;
+        }
+
+        try {
+            mediaRecorder.resumeRecording();
+            call.resolve(ResponseGenerator.successResponse());
+        } catch (Exception exp) {
+            call.reject(FAILED_TO_FETCH_RECORDING, exp);
+        }
+    }
+
+    @PluginMethod()
     public void stopRecording(PluginCall call) {
         if (mediaRecorder == null) {
             call.reject(RECORDING_HAS_NOT_STARTED);
@@ -117,6 +147,24 @@ public class VoiceRecorder extends Plugin {
                 call.reject(FAILED_TO_FETCH_RECORDING);
             else
                 call.resolve(ResponseGenerator.dataResponse(recordData.toJSObject()));
+        } catch (Exception exp) {
+            call.reject(FAILED_TO_FETCH_RECORDING, exp);
+        } finally {
+            mediaRecorder.deleteOutputFile();
+            mediaRecorder = null;
+        }
+    }
+
+    @PluginMethod()
+    public void cancelRecording(PluginCall call) {
+        if (mediaRecorder == null) {
+            call.reject(RECORDING_HAS_NOT_STARTED);
+            return;
+        }
+
+        try {
+            mediaRecorder.stopRecording();
+            call.resolve(ResponseGenerator.successResponse());
         } catch (Exception exp) {
             call.reject(FAILED_TO_FETCH_RECORDING, exp);
         } finally {
