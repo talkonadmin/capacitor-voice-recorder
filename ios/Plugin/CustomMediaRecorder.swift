@@ -28,7 +28,7 @@ class CustomMediaRecorder {
     public func startRecording() -> Bool {
         do {
             recordingSession = AVAudioSession.sharedInstance()
-            try recordingSession.setCategory(AVAudioSession.Category.record)
+            try recordingSession.setCategory(AVAudioSession.Category.playAndRecord)
             try recordingSession.setActive(true)
             audioFilePath = getDirectoryToSaveAudioFile().appendingPathComponent("\(UUID().uuidString).aac")
             audioRecorder = try AVAudioRecorder(url: audioFilePath, settings: settings)
