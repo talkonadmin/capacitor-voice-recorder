@@ -81,8 +81,8 @@ public class VoiceRecorder: CAPPlugin {
             return
         }
         
-        customMediaRecorder?.stopRecording()
-        customMediaRecorder?.deleteOutputFile()
+        customMediaRecorder?.stopRecording(deleteFile: false)
+        customMediaRecorder = nil
         call.resolve(ResponseGenerator.successResponse())
     }
 

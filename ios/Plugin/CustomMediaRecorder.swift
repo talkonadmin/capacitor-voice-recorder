@@ -51,10 +51,13 @@ class CustomMediaRecorder {
         } catch {}
     }
 
-    public func stopRecording() {
+    public func stopRecording(deleteFile: Bool = false) {
         do {
             audioRecorder.stop()
             try recordingSession.setActive(false)
+            if (deleteFile) {
+              audioRecorder.deleteRecording()
+            }
             audioRecorder = nil
             recordingSession = nil
         } catch {}
@@ -62,11 +65,5 @@ class CustomMediaRecorder {
     
     public func getOutputFile() -> URL {
         return audioFilePath
-    }
-    
-    public func deleteOutputFile() {
-        do {
-          audioRecorder.deleteRecording()
-        } catch {}
     }
 }
